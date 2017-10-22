@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-public class Game extends JFrame{
+public class GameCopy extends JFrame{
 
 	public static AI individual;
 	//public static ArrayList<AI> individuals;
@@ -13,11 +13,12 @@ public class Game extends JFrame{
 	public static Board myBoard;
 	public static int[] scores;
 	
-	Game() {
+	GameCopy() {
 	    add(new Board());
 	    setResizable(false);
 	    pack();
 	    individual = new AI();
+	    individual.initialize();
 	    //Ai deklarieren
 	    setTitle("Snake");
 	    setLocationRelativeTo(null);
@@ -25,6 +26,7 @@ public class Game extends JFrame{
 	}
 	
 	public static void oneStep(){
+		// SET INPUT ANN
 		for (int k=0;k<100;k++){
         	individual.setInput(k,0);
         	}
@@ -34,9 +36,13 @@ public class Game extends JFrame{
         	 for (int k=myBoard.snake.getJoints(); k>0;k--) {
         		 individual.setInput(myBoard.snake.getSnakeY(k)* 10 + myBoard.snake.getSnakeX(k), -1);
         	 }
+        	 // EVALUATE OUTPUT ANN
+        	 individual.Layers[0].getOutputLayer0();
+        	 individual.Layers[1].updateLayer();
+        	 individual.Layers[1].getOutputLayer();
+        	 individual.Layers[2].updateLayer();
         	 
-        	 // EVALUATE OUTPUT
-        	 
+        	 // GET OUTPUT ANN
         	 double outputUp = individual.getOutput(0);
         	 double outputDown = individual.getOutput(1);
         	 double outputLeft = individual.getOutput(2);
@@ -73,22 +79,45 @@ public class Game extends JFrame{
         	 
         	 myBoard.actionPerformed(null);
 	}
+	
+	public static void search(){
+		// GA SEARCH
+	}
 
 	public static void main(String[] args) {
 		
 		//10'000er LOOP
-
-	    // Creates a new thread so our GUI can process itself
+	
+		for (int a=0;a<100;a++){
 	    EventQueue.invokeLater(new Runnable() {
-	        
-	    	//100er LOOP
+	    	// Creates a new thread so our GUI can process itself
 	    	
 	        public void run() {
-	            JFrame frame = new Game();
+	            JFrame frame = new GameCopy();
 	            frame.setVisible(true);
 	            // SWITCH OFF
 	        }
 	    });
+	    
+	    while (myBoard.inGame=true){
+	    oneStep();
+	    }
+	    	
+	    myBoard.getScore();
+	   	scores = new int[]{
+	   			myBoard.getScore()
+	   	};
+	   	individuals = new AI[]{
+    			individual	    	
+    		};
+		}
+		
+		/*GA
+    	 * 1) selection of the best
+    	 * 2) make copies
+    	 * 3) randomize copies
+    	 * 4) restart loop
+    	 */
 	}
 }
 
