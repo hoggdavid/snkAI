@@ -16,7 +16,7 @@ public class AI {
 	 * input&output connect w int list inputs[] from Board 
 	 */
 
-	public void setInput(int num, int input){
+	public void setInput(int num, double input){
 		InputNeurons[num].setInput(input);
 	}
 	
@@ -28,16 +28,18 @@ public class AI {
 		score = newScore;
 	}
 	
-	public void initializeANN(){
+	public void initialize(){
 		
 		int in, hid, out;
 		
+		// GENERATE NEURONS
 		for (in=0;in<100;in++){
 			InputNeurons = new Neuron[]{
 					new Neuron()
 			}; 
 		}
-		//does that function?
+		// Inputlayer
+		
 		for (hid=0;hid<5;hid++){
 			HiddenNeurons = new Neuron[] {
 					new Neuron()
@@ -49,34 +51,27 @@ public class AI {
 					new Neuron()
 			};
 		}
-			
-		/*Neuron BiasNeuron = new Neuron();
-		*BiasNeuron.setOutput(1);
-		*/
 		
+		// CONNECTING
 		for (hid=0;hid<5;hid++){
 			for (in=0;in<100;in++){
-			HiddenNeurons[hid].connectTo(InputNeurons[in], 2*Math.random()-1.0);
+				HiddenNeurons[hid].connectTo(InputNeurons[in], 2*Math.random()-1.0);
 			}
 			
-			Layers[0].addNeuron(HiddenNeurons[hid]);
+			Layers[1].addNeuron(HiddenNeurons[hid]);
 			
 			for (out=0;out<4;out++){
 				OutputNeurons[out].connectTo(HiddenNeurons[hid], 2*Math.random()-1.0);
 			}
 		}
 		
-		/*for (out=0;out<4;out++){
-		*	OutputNeurons[out].connectTo(BiasNeuron, 0.6);
-		*}
-		*/
-		
-		for (out=0;out<4;out++){
-			Layers[1].addNeuron(OutputNeurons[out]);
+		for (in=0;in<100;in++){
+			Layers[0].addNeuron(InputNeurons[in]);
 		}
 		
-		
-		//Input layer
+		for (out=0;out<4;out++){
+			Layers[2].addNeuron(OutputNeurons[out]);
+		}
 	}
 }
 
