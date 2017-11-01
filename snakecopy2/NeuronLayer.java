@@ -10,18 +10,6 @@ public class NeuronLayer {
 		Neurons = new ArrayList<Neuron>();
 	}
 	
-	public void getOutputLayer0(){
-		for(int i=0;i<Neurons.size();i++){
-			Neurons.get(i).getOutputIn();
-		}
-	}
-	
-	public void getOutputLayer(){
-		for(int i=0;i<Neurons.size();i++){
-			Neurons.get(i).getOutput();
-		}
-	}
-	
 	public int addNeuron(Neuron N){
 		Neurons.add(N);
 		return Neurons.size();

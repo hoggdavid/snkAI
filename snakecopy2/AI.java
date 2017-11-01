@@ -2,7 +2,7 @@ package snakecopy2;
 import snakecopy2.Neuron;
 import snakecopy2.NeuronLayer;
 
-public class AI {
+public class AI implements Comparable<AI>{
 	
 	public int score;
 	public Neuron[] InputNeurons;
@@ -15,9 +15,34 @@ public class AI {
 	/* Bias Neuron?
 	 * input&output connect w int list inputs[] from Board 
 	 */
+	
+	public void randomize(){
+		for (int i=1;i<3;i++){
+			for (int j=0;j<Layers[i].Neurons.size();j++){
+				for (int k=0;k<Layers[i].Neurons.get(j).Weights.size();k++){
+					double w = Layers[i].Neurons.get(j).Weights.get(k);
+					// rechnung mit w
+					
+					Layers[i].Neurons.get(j).Weights.set(k, w);
+				}
+			}
+		}
+	}
+	
+	public int compareTo(AI o) {
+        int f1 = this.score;
+        int f2 = o.score;
+ 
+        if (f1 < f2)
+            return 1;
+        else if (f1 > f2)
+            return -1;
+        else
+            return 0;
+    }
 
-	public void setInput(int num, double input){
-		InputNeurons[num].setInput(input);
+	public void setInput(int num, double output){
+		InputNeurons[num].setOutput(output);
 	}
 	
 	public double getOutput(int num){
