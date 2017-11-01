@@ -14,8 +14,6 @@ public class Neuron {
 		Predecessors = new ArrayList<Neuron>();
 		Weights = new ArrayList<Double>();
 		output = 0;
-		
-		//schwelle = (int)(1*Math.random()+0.3);
 	}
 	
 	public void connectTo(Neuron N, double weight){
@@ -23,8 +21,8 @@ public class Neuron {
 		Weights.add(weight);
 	}
 	
-	public void setInput(double newInput){
-		input = newInput;
+	public void setOutput(double newOutput){
+		output = newOutput;
 	}
 	
 	public double getOutputIn(){
@@ -33,24 +31,11 @@ public class Neuron {
 	}
 	
 	public double getOutput(){
-		// stupid return input;
 		return output;
 	}	
 	
-	/*public void updateIn(){
-		input = 0;
-		int nPredecessors = Predecessors.size();
-		
-		// calculate input
-		for (int i=0;i<nPredecessors;i++){
-			input += Weights.get(i)*Predecessors.get(i).getOutput();
-		}
-		// calculate output
-		output = input;
-	}*/
-	
 	public void update(){
-		input = output;
+		input = 0;
 		int nPredecessors = Predecessors.size();
 		
 		// calculate input

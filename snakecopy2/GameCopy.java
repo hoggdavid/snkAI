@@ -2,6 +2,8 @@ package snakecopy2;
 import snakecopy2.AI;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
@@ -9,7 +11,7 @@ public class GameCopy extends JFrame{
 
 	public static AI individual;
 	//public static ArrayList<AI> individuals;
-	public static AI[] individuals;
+	public static LinkedList<AI> individuals = new LinkedList<AI>();
 	public static Board myBoard;
 	public static int[] scores;
 	
@@ -17,16 +19,18 @@ public class GameCopy extends JFrame{
 	    add(new Board());
 	    setResizable(false);
 	    pack();
-	    individual = new AI();
-	    individual.initialize();
-	    //Ai deklarieren
+	    // add ai
 	    setTitle("Snake");
 	    setLocationRelativeTo(null);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public static void oneStep(){
-		// SET INPUT ANN
+	public void indPlay(){
+		
+	}
+	
+	public static void oneStep(int player){
+		individual = individuals.get(player);
 		for (int k=0;k<100;k++){
         	individual.setInput(k,0);
         	}
@@ -37,9 +41,7 @@ public class GameCopy extends JFrame{
         		 individual.setInput(myBoard.snake.getSnakeY(k)* 10 + myBoard.snake.getSnakeX(k), -1);
         	 }
         	 // EVALUATE OUTPUT ANN
-        	 individual.Layers[0].getOutputLayer0();
         	 individual.Layers[1].updateLayer();
-        	 individual.Layers[1].getOutputLayer();
         	 individual.Layers[2].updateLayer();
         	 
         	 // GET OUTPUT ANN
@@ -86,6 +88,11 @@ public class GameCopy extends JFrame{
 
 	public static void main(String[] args) {
 		
+		for (int day7=0;day7<100;day7++){
+			individual = new AI();
+			individual.initialize();
+			individuals.add(individual);
+		}
 		//10'000er LOOP
 	
 		for (int a=0;a<100;a++){
@@ -100,22 +107,23 @@ public class GameCopy extends JFrame{
 	    });
 	    
 	    while (myBoard.inGame=true){
-	    oneStep();
+	    oneStep(a);
 	    }
-	    	
-	    myBoard.getScore();
-	   	scores = new int[]{
-	   			myBoard.getScore()
-	   	};
-	   	individuals = new AI[]{
-    			individual	    	
-    		};
+	    
+	    individuals.get(a).setScore(myBoard.getScore());
+	    
+	}
+		
+		Collections.sort(individuals);
+		LinkedList<AI> newGen = new LinkedList<AI>();
+		for (int o=0;o<13;o++){
+			for (int z=13;z>o;z--){
+				newGen.add(individuals.get(o));
+			}
 		}
 		
 		/*GA
-    	 * 1) selection of the best
-    	 * 2) make copies
-    	 * 3) randomize copies
+    	 * 3) randomize function
     	 * 4) restart loop
     	 */
 	}
