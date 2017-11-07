@@ -5,6 +5,7 @@ import snakecopy2.NeuronLayer;
 public class AI implements Comparable<AI>{
 	
 	public int score;
+	public double  mutationConst;
 	public Neuron[] InputNeurons;
 	//public static Neuron[] InputNeurons; ???
 	public Neuron[] HiddenNeurons;
@@ -21,8 +22,7 @@ public class AI implements Comparable<AI>{
 			for (int j=0;j<Layers[i].Neurons.size();j++){
 				for (int k=0;k<Layers[i].Neurons.get(j).Weights.size();k++){
 					double w = Layers[i].Neurons.get(j).Weights.get(k);
-					// rechnung mit w
-					
+					w = w + mutationConst * (Math.random()*2-1);
 					Layers[i].Neurons.get(j).Weights.set(k, w);
 				}
 			}

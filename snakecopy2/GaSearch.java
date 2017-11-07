@@ -1,6 +1,6 @@
 package snakecopy2;
 
-import snakecopy2.AI;
+
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
