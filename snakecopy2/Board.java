@@ -296,6 +296,3 @@ public class Board extends JPanel implements ActionListener {
 		return BOARDWIDTHVIRT;
 	}
 }
-
-// Scoreboard (points, times) 
- 

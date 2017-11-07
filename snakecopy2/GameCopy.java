@@ -1,6 +1,9 @@
 package snakecopy2;
 import snakecopy2.AI;
 import java.awt.EventQueue;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -19,14 +22,30 @@ public class GameCopy extends JFrame{
 	    add(new Board());
 	    setResizable(false);
 	    pack();
-	    // add ai
+	    //Select AI
+	    //Let AI play
 	    setTitle("Snake");
 	    setLocationRelativeTo(null);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void indPlay(){
-		
+	public void letPlay(int u){
+		//select safed AI
+		//new class for letting an safed AI play
+	}
+	//safe individual
+	public static void write (String filename, ArrayList<Double>p) throws IOException{
+		  BufferedWriter outputWriter = null;
+		  outputWriter = new BufferedWriter(new FileWriter(filename));
+		  for (int i = 0; i < p.size(); i++) {
+		    outputWriter.write(Integer.toString((i)));
+		    outputWriter.newLine();
+		  }
+		  outputWriter.flush();  
+		  outputWriter.close();  
+		}
+	
+	public void load(int u){
 	}
 	
 	public static void oneStep(int player){
@@ -81,10 +100,6 @@ public class GameCopy extends JFrame{
         	 
         	 myBoard.actionPerformed(null);
 	}
-	
-	public static void search(){
-		// GA SEARCH
-	}
 
 	public static void main(String[] args) {
 		
@@ -93,18 +108,19 @@ public class GameCopy extends JFrame{
 			individual.initialize();
 			individuals.add(individual);
 		}
-		//10'000er LOOP
+		for (int x=0;x<10000;x++){
 	
 		for (int a=0;a<100;a++){
+		
+			new GameCopy();
+		/*	
 	    EventQueue.invokeLater(new Runnable() {
-	    	// Creates a new thread so our GUI can process itself
 	    	
 	        public void run() {
 	            JFrame frame = new GameCopy();
 	            frame.setVisible(true);
-	            // SWITCH OFF
 	        }
-	    });
+	    });*/
 	    
 	    while (myBoard.inGame=true){
 	    oneStep(a);
@@ -113,21 +129,62 @@ public class GameCopy extends JFrame{
 	    individuals.get(a).setScore(myBoard.getScore());
 	    
 	}
-		
+		//Genetic Algorithm
 		Collections.sort(individuals);
 		LinkedList<AI> newGen = new LinkedList<AI>();
+		//13 best + copies
 		for (int o=0;o<13;o++){
 			for (int z=13;z>o;z--){
 				newGen.add(individuals.get(o));
+				//individuals nr.0/90
 			}
 		}
 		
-		/*GA
-    	 * 3) randomize function
-    	 * 4) restart loop
-    	 */
-	}
+		for (int n=0;n<9;n++){
+			individual = new AI();
+			individual.initialize();
+			newGen.add(individual);
+			//individuals 91/99
+		}
+		
+		int j = 1;
+		int k = 13;
+		int jPlus = 13;
+		int kPlus = 12;
+		
+		// RANDOMIZE
+		for (int l=0;l<12;l++){
+
+			for (int r=j;r<k;r++){
+				newGen.get(r);
+				individual.randomize();
+			}
+			j = j+jPlus;
+			k = k+kPlus;
+			jPlus = jPlus -1;
+			kPlus = kPlus -1;
+		}
+		if (x==9900){
+			for (int layer=1;layer<3;layer++){
+				for (int n=0;n<newGen.get(0).Layers[layer].Neurons.size();n++){
+					
+					final ArrayList<Double>FinalWeights;
+					FinalWeights = new ArrayList<Double>();
+					for (int w=0;w<newGen.get(0).Layers[layer].Neurons.get(n).Weights.size();w++){
+						FinalWeights.add(newGen.get(0).Layers[layer].Neurons.get(n).Weights.get(w));
+					}
+					try {
+						GameCopy.write("AI_gen("+x+")_layer("+layer+")_neuron("+n+")", FinalWeights);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}
+		}
+	}		
+}
+	
 }
 
-//--> in board change game over and initGame()
-// --> Controls or Controller
+//Board change game over and initGame()
