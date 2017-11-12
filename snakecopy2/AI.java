@@ -57,13 +57,11 @@ public class AI implements Comparable<AI>{
 		
 		int in, hid, out;
 		
-		// GENERATE NEURONS
-		for (in=0;in<100;in++){
+		/*for (in=0;in<100;in++){
 			InputNeurons = new Neuron[]{
 					new Neuron()
 			}; 
 		}
-		// Inputlayer
 		
 		for (hid=0;hid<5;hid++){
 			HiddenNeurons = new Neuron[] {
@@ -75,7 +73,16 @@ public class AI implements Comparable<AI>{
 			OutputNeurons = new Neuron[]{
 					new Neuron()
 			};
-		}
+		}*/
+		
+		//Error in AI.java:87 (initialize) & in GameCopy.java:108
+		//Nichts funktioniert, Problem mit Neuronen korrekt in Liste einfügen
+		
+		InputNeurons = new Neuron[100];
+		
+		HiddenNeurons = new Neuron[5];
+		
+		OutputNeurons = new Neuron[4];
 		
 		// CONNECTING
 		for (hid=0;hid<5;hid++){
@@ -99,5 +106,3 @@ public class AI implements Comparable<AI>{
 		}
 	}
 }
-
-//Layers update function
