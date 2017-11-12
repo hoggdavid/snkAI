@@ -58,24 +58,21 @@ public class AI implements Comparable<AI>{
 		int in, hid, out;
 		
 		// GENERATE NEURONS
+		InputNeurons = new Neuron[];
 		for (in=0;in<100;in++){
-			InputNeurons = new Neuron[]{
-					new Neuron()
-			}; 
-		}
+			InputNeurons.add(new Neuron());
+		} 
+		
 		// Inputlayer
-		
+		HiddenNeurons = new Neuron[];
 		for (hid=0;hid<5;hid++){
-			HiddenNeurons = new Neuron[] {
-					new Neuron()
-			};
-		}
+			HiddenNeurons.add(new Neuron());
+		} 
 		
+		OutputNeurons = new Neuron[];
 		for (out=0;out<4;out++){
-			OutputNeurons = new Neuron[]{
-					new Neuron()
-			};
-		}
+			OutputNeurons.add(new Neuron());
+		} 
 		
 		// CONNECTING
 		for (hid=0;hid<5;hid++){
