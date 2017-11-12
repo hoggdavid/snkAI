@@ -57,19 +57,29 @@ public class AI implements Comparable<AI>{
 		
 		int in, hid, out;
 		
+<<<<<<< HEAD
 		/*for (in=0;in<100;in++){
 			InputNeurons = new Neuron[]{
 					new Neuron()
 			}; 
 		}
+=======
+		// GENERATE NEURONS
+		InputNeurons = new Neuron[];
+		for (in=0;in<100;in++){
+			InputNeurons.add(new Neuron());
+		} 
+>>>>>>> 45c2d1547af15cb841c9a84736c1b5260fb3e5fa
 		
+		// Inputlayer
+		HiddenNeurons = new Neuron[];
 		for (hid=0;hid<5;hid++){
-			HiddenNeurons = new Neuron[] {
-					new Neuron()
-			};
-		}
+			HiddenNeurons.add(new Neuron());
+		} 
 		
+		OutputNeurons = new Neuron[];
 		for (out=0;out<4;out++){
+<<<<<<< HEAD
 			OutputNeurons = new Neuron[]{
 					new Neuron()
 			};
@@ -83,6 +93,10 @@ public class AI implements Comparable<AI>{
 		HiddenNeurons = new Neuron[5];
 		
 		OutputNeurons = new Neuron[4];
+=======
+			OutputNeurons.add(new Neuron());
+		} 
+>>>>>>> 45c2d1547af15cb841c9a84736c1b5260fb3e5fa
 		
 		// CONNECTING
 		for (hid=0;hid<5;hid++){
@@ -105,4 +119,10 @@ public class AI implements Comparable<AI>{
 			Layers[2].addNeuron(OutputNeurons[out]);
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+}
+
+//Layers update function
+>>>>>>> 45c2d1547af15cb841c9a84736c1b5260fb3e5fa
